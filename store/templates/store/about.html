@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="custom-card p-4 mr-auto ml-auto mt-4 mb-4" style="width: 500px">
+        <h4 class="text-center" style="border-bottom: 1px solid lightgrey;">About Us</h4>
+        <div style="border-bottom: 1px solid lightgrey;" class="pb-4">
+            <h6>VEGMART</h6>
+            <img  class="mr-4" src="{% static 'images/logo.png' %}" style="float: left; width:130px; height:60px; border-radius:50%;" >
+            VegMart is a very trusted vegetable online marketing company, whose headquarters is kirlampudi, Andhra Pradesh
+            we always concern about the quality of the products we deliver, by the way we are only the delivary partners of verified
+            shops in your locality!
+        </div>
+        <br>
+        <div>
+            <h6>ABOUT DEVELOPER</h6>
+            <img  class="mr-4" src="{% static 'images/bobby.jpg' %}" style="float: left; width:120px; height:120px; border-radius:50%;" >
+            coder_bobby (chief developer of this site) is a student from jntuk kakinda, who is very passionate about coding
+            and creating cool things, he is also a powerlifter, his hometown is kirlampudi 533431, Andhra Pradesh ,India(91+).keep hustling.
+            <strong style="display: block;">His priority list =>  family > coding > gym > others</strong>
+        </div>
+        </div>
+{% endblock content %}

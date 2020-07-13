@@ -1,0 +1,138 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid my-5 d-flex justify-content-center">
+    <div class="card card-1">
+        
+        <div class="card-header bg-white">
+        <h4 class="mb-0 text-center">Order Invoice</h4>
+
+            <div class="d-flex justify-content-between align-items-start mt-3">
+                <div>
+                    {% if user.user_role.role == 'Customer' or user.user_role.role == 'ShopOwner' %}
+                    <small>Delivery Boy Details:</small>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <img  style="width: 60px; height:60px; margin-right:5px; border-radius:50%; " src="{{ obj.delivery_boy.image.url }}">
+                        <div>
+                            <strong style="display: block;">{{obj.delivery_boy.user.username}}</strong>
+                            <small>{{obj.delivery_boy.user.phone_number}}</small>
+                        </div>
+                    </div>
+                    {%else %}
+                    <strong>Shop Address:</strong>
+                    <div style="width: 200px;">
+                        <p>{{obj.order.shop.name}} , {{obj.order.shop.address.get_address}}</p>
+                    </div>
+                    {%endif %}
+                </div>
+                <div class="text-center"> <img class="img-fluid my-auto align-items-center mb-0 pt-3" src="{% static 'images/logo.png'%}" width="115" height="115">
+                    <p class="mb-2 mt-2 pt-0 Glasses"><i>Fast and Fresh</i></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <h6 class="color-1 mb-0 change-color">Receipt</h6>
+                </div>
+            </div>
+            <!-- loop through order items here -->
+            {% for order_item in obj.order.order_item.all %}
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="card card-2">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" style="width: 135px; height:75px;" src="{{ order_item.product.image.url }}"  /> </div>
+                                <div class="media-body my-auto text-right">
+                                    <div class="row my-auto flex-column flex-md-row">
+                                        <div class="col my-auto" style="width: 150px;">
+                                            <h6 class="mb-0">{{ order_item.product.name}}</h6>
+                                        </div>
+                                        <div class="col my-auto"> <small>{{order_item.product.category.name}}</small></div>
+                                        <div class="col my-auto"> <small>Qty : {{order_item.quantity}}</small></div>
+                                        <div class="col my-auto">
+                                            <h6 class="mb-0">&#8377;{{ order_item.get_order_item_amount }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- finish loop here -->
+            {%endfor %}
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="row justify-content-between">
+                        <div class="col-auto">
+                            <p class="mb-1 text-dark"><b>Order Details</b></p>
+                        </div>
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"><b>Actual Total</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">&#8377;{{ obj.order.get_order_actual_amount }}</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"> <b>Discount</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">&#8377;{{ obj.order.get_discounted_amount }}</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"><b>Delivery Charge</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">&#8377;10</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-success">
+                        <div class="flex-sm-col text-right col">
+                            <h6 class="mb-1"><b>Total Amount</b></h6>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <h6 class="mb-1">&#8377;{{ obj.order.get_final_amount }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row invoice ">
+                <div class="col">
+                    <p class="mb-1"> Invoice Number : Rf-{{obj.id}}</p>
+                    <p class="mb-1">Invoice Date : {{obj.date_shipped}}</p>
+                    <p class="mb-1">sold by : {{obj.order.shop.name}}</p>
+                    <p class="mb-1" style="width: 250px;"><span class="text-info">delivery address</span> : {{obj.address.get_address }}</p>
+                </div>
+            </div>
+            <div>
+                {% if user.user_role.role == 'Customer' %}
+                <h6 class="text-center">Thank you very much for shopping with us!</h6>
+                <div class="text-right"><button onclick="window.print()" id="printPageButton" class="btn btn-primary">print</button></div>
+                {%elif  user.user_role.role == 'ShopOwner' %}
+                    {% if obj.is_delivered %}
+                        <h6 class="text-success"> Order is Successfully Delivered!</h6>
+                    {%else%}
+                    <h6>Order is not yet delivered,pack the order as quick possible</h6>
+                    {%endif %}
+                {%else%}
+                    {% if obj.is_delivered %}
+                        <h6 class="text-success"> Order is Successfully Delivered!</h6>
+                    {%else%}
+                        <h6>Order is not yet delivered, so deliver order as quick possible</h6>
+                        <p>just now Delivered? <form action='{{ obj.get_delivered_url }}' method='POST'>{% csrf_token %} <input type="submit"  class="btn btn-success" value="Mark As Delivered"></form></p>
+                    {%endif %}
+                {%endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

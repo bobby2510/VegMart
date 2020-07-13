@@ -1,0 +1,88 @@
+{%extends 'store/base.html' %}
+{%block content%}
+<section  class="mt-4 mr-auto ml-auto" >
+    <!--Grid row-->
+    <div class="row mr-auto ml-auto" style="max-width:1000px;">
+        <!--Grid column-->
+        <div class="col-lg-8 mb-4 mr-auto custom-column" style="max-width: 67%;">
+            <h5 class="mb-4 mt-4 text-center">Cart (<span>{{user.customer.get_cart_count}}</span> items)</h5>
+            <!-- card beginning -->
+            {% for order_item in order_items %}
+            <div class="row mb-4">
+                <div class="col-md-5 col-lg-3 col-xl-3">
+                <div class="rounded mb-3 mb-md-0">
+                    <img class="img-fluid w-100"
+                    src="{{order_item.product.image.url}}" alt="{{order_item.product.name}}">
+                </div>
+                </div>
+                <div class="col-md-7 col-lg-9 col-xl-9">
+                <div>
+                    <div class="d-flex justify-content-between">
+                    <div>
+                        <h5>{{order_item.product.name}}</h5>
+                        <p class="mb-2 text-muted text-uppercase small">Category: {{order_item.product.category.name}}</p>
+                        <p class="mb-2 text-muted text-uppercase small">Shop: {{order_item.product.shop.name}}</p>
+                        <p class="mb-2 text-muted text-uppercase small">Price:  <strong>&#8377; {{order_item.product.price}}</strong></p>
+                        <p class="mb-3 text-muted text-uppercase small">Measurement: kg</p>
+                    </div>
+                    <div>
+                            <div class="d-flex  align-items-center justify-content-center">
+                                <a href="{{ order_item.product.get_absolute_decreament_order_item_url }}" class="custom-cart-quantity cart-link" style="text-decoration-line:none;"><strong>&#8722;</strong></a>
+                                <span class='custom-cart-quantity '>{{order_item.quantity}}</span>
+                                <a href="{{ order_item.product.get_absolute_increase_order_item_url }}" class='custom-cart-quantity cart-link' style="text-decoration-line:none;"><strong>&#43;</strong></a>
+                            </div>
+                            <small id="passwordHelpBlock" class="form-text text-muted text-center">
+                            (Note, {{order_item.quantity}} kg)
+                            </small>
+                    </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{{order_item.product.get_absolute_remove_from_cart_url }}" type="button" class="card-link-secondary small text-uppercase mr-3"><i
+                            class="fas fa-trash-alt mr-1"></i> Remove item </a>
+                    </div>
+                    <p class="mb-0"><span><strong id="summary">&#8377; {{order_item.get_order_item_amount}}</strong></span></p class="mb-0">
+                    </div>
+                </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            <!-- card end-->
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 custom-column" style="max-width: 30%; height:320px">
+            <div class="mb-3">
+                    <div class="pt-4">
+                        <h5 class="mb-3">Order Summary</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center ">
+                            Actual amount
+                            <span>&#8377;{{order.get_order_actual_amount}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center ">
+                            Delivary amount
+                            <span>10</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center ">
+                                Discount amount
+                                <span>-{{order.get_discounted_amount}}</span>
+                                </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center ">
+                            <div>
+                                <strong>Total amount:</strong>
+                            </div>
+                            <span><strong>&#8377;{{order.get_final_amount}}</strong></span>
+                            </li>
+                        </ul>
+                        <a href="{% url 'store:checkout' %}" class="btn btn-primary btn-block">go to checkout</a>
+                    </div>
+            </div>
+        </div>
+        <!--Grid column-->
+    </div>
+    <!-- Grid row -->
+</section>
+{%endblock content%}

@@ -1,0 +1,71 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content%}
+    <h3 class='text-center mt-4'>Search Results</h3>
+    <div class="card mb-4 mt-4">
+        <div class="card-header" style="background-color:#e3f2fd ;">
+          Shops
+        </div>
+        <div class="card-body">
+            {% if shop %}
+            <div class='d-flex p-2 justify-content-between flex-wrap'>
+                {% for shop_item in shop_qs %}
+                <div class="card m-2 mt-4 custom-card" style="width: 18rem;">
+                    <img class="card-img-top restaurant-image" src="{{ shop_item.image.url }}" alt="{{ shop_item.name }}">
+                    <div class="card-body">
+                    <h5 class="card-title">{{shop_item.name}}</h5>
+                    <div class='d-flex justify-content-between'>
+                        {% if shop_item.shop_rating_count == 0 %}
+                        <p>No one Rated</p>
+                        {% else %}
+                        <p>{{shop_item.shop_rating|floatformat:1}} <i class="fa fa-star" style="color:gold"></i> ({{shop_item.shop_rating_count}})</p>
+                        {% endif %}
+                        {% if shop.discount == 0%}
+                        <p><i class="fas fa-exclamation-triangle" style="color:orange"></i> No Offers</p>
+                        {%else%}
+                        <p><i class="fa fa-fire" style="color:red"></i> {{shop_item.discount}}% Off </p>
+                        {%endif %}
+                    </div>
+                    <div class='text-center'>
+                        <a href="{{ shop_item.get_absolute_url }}" class="btn btn-primary">View Shop</a>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {%else%}
+            <p>Your Search did not match any Shops!</p>
+            {%endif%}
+        </div>
+      </div>
+      <div class="card mb-4 mt-4">
+        <div class="card-header" style="background-color:#e3f2fd ;">
+          Products
+        </div>
+        <div class="card-body">
+            {% if product %}
+            <div class="d-flex justify-content-around flex-wrap mt-2">
+                {% for product_item in product_qs %}
+                <div class="card mt-4 custom-card" style="width: 18rem;">
+                  <img class="card-img-top restaurant-image" src="{{ product_item.image.url }}" alt="{{product_item.name}}">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">{{product_item.name}}</h5>
+                    <h6>{{product_item.shop.name}}(
+                        {%if product_item.shop.shop_rating_count == 0 %}
+                        <span style="color:gold;">No one rated</span>
+                        {%else %}
+                        <i class="fa fa-star" style="color:gold"></i>{{product_item.shop.shop_rating|floatformat:1}}
+                        {%endif %}
+                        )</h6>
+                    <h6>price : &#8377; {{product_item.price}} <small style="font-style: italic;">per kg</small></h6>
+                    <a href="{{ product_item.get_absolute_url }}" class="btn btn-primary">Add to cart</a>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+            {%else%}
+            <p>Your Search did not match any Products!</p>
+            {%endif%}
+        </div>
+      </div>
+{% endblock content%}

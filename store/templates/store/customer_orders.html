@@ -1,0 +1,74 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="card mb-4 mt-4">
+    <div class="card-header" style="background-color:#e3f2fd ;">
+      Active Orders
+    </div>
+    <div class="card-body">
+        {% if active %}
+            {% for obj in active_orders %}
+            <div class="card card-2 mt-3 mb-3">
+                <div class="card-body">
+            <div class="media">
+                <div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" style="width: 135px; height:75px;" src="{{ obj.order.shop.image.url }}" /></div>
+                <div class="media-body my-auto text-right">
+                    <div class="row my-auto flex-column flex-md-row">
+                        <div class="col my-auto">
+                            <h6 class="mb-0">{{ obj.order.shop.name }}</h6>
+                        </div>
+                        <div class="col my-auto"> <small>{{obj.date_shipped }}</small></div>
+                        <div class="col my-auto"> <small>Ref id : Rf-{{ obj.id }}</small></div>
+                        <div class="col my-auto">
+                            <h6 class="mb-0">&#8377;{{ obj.order.get_final_amount }}</h6>
+                        </div>
+                        <div class="col my-auto">
+                <a href="{{obj.get_absolute_url }}" class="btn btn-outline-success">View Order Details</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
+            {%else %}
+            <p>There are no active orders found!</p>
+            {%endif %}
+    </div>
+  </div>
+  <div class="card mb-4 mt-4">
+    <div class="card-header" style="background-color:#e3f2fd ;">
+      Completed Orders
+    </div>
+    <div class="card-body">
+        {% if completed %}
+            {% for obj in completed_orders %}
+            <div class="card card-2 mt-3 mb-3">
+                <div class="card-body">
+            <div class="media">
+                <div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" style="width: 135px; height:75px;" src="{{ obj.order.shop.image.url }}" /></div>
+                <div class="media-body my-auto text-right">
+                    <div class="row my-auto flex-column flex-md-row">
+                        <div class="col my-auto">
+                            <h6 class="mb-0">{{ obj.order.shop.name }}</h6>
+                        </div>
+                        <div class="col my-auto"> <small>{{obj.date_shipped }}</small></div>
+                        <div class="col my-auto"> <small>Ref id : Rf-{{ obj.id }}</small></div>
+                        <div class="col my-auto">
+                            <h6 class="mb-0">&#8377;{{ obj.order.get_final_amount }}</h6>
+                        </div>
+                        <div class="col my-auto">
+                <a href="{{obj.get_absolute_url }}" class="btn btn-outline-success">View Order Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
+            {%else%}
+            <p>There are no completed orders found!</p>
+            {%endif %}
+    </div>
+  </div>
+{% endblock %}

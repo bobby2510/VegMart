@@ -1,0 +1,8 @@
+{% extends 'store/base.html' %}
+{% block content %}
+{%if error_message %}
+<h1>{{error_message }}</h1>
+{%else%}
+<h1>HTTP 404 Error has Occured!</h1>
+{%endif %}
+{% endblock %}

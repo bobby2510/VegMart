@@ -1,0 +1,56 @@
+{% extends 'store/base.html' %}
+{%block content%}
+<div class="custom-column mt-4 mb-4">
+    <h3 class="text-center pt-4">Checkout Form</h3>
+    <form class="card-body" method='post'>
+      {% csrf_token %}
+        <h4 class='mb-3'>Receiver Data:</h4>
+          <div class="row">
+              <div class="col-md-6 mb-2">
+                <div class="md-form ">
+                  <input type="text" name="r_name" placeholder="Name" required class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6 mb-2">
+                <div class="md-form">
+                  <input type="text" name="r_ph_no"  required placeholder="Phone Number" class="form-control">
+                </div>
+              </div>
+          </div>
+        <hr>
+        <input type="text" name="address_flag" id="address_flag" style="display:none" value="0">
+        <h4>Address : </h4>
+        {% if user.customer.have_atleast_one_address %}
+        <div>
+        <div class="d-flex justify-content-first flex-wrap"> 
+          {% for address in user.customer.get_address_list %}
+            <div class="card ml-3 mr-5 mt-2 mb-2" style="width: 18rem;">
+              <div class="card-body">
+                <span id="address_id" style="display: none;">{{address.id}}</span>
+                <h5 class="card-title">Address {{forloop.counter}}</h5>
+                <p class="card-text">{{address.get_address}}</p>
+                <span  class="btn btn-primary existing-address">Deliver Here</span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+          <br>
+          <p class="btn btn-info btn-sm ml-2" onclick="show_address()"><i  id="address_icon" class="fa fa-plus-circle"></i> <span id="address_label">add new address</span></p>
+          <br>
+          <div class="custom-form-container"  id="new_address" style="display: none;">
+            {{form}}
+          </div>
+        </div>
+        {%else%}
+          <div class="custom-form-container">
+            {{form}}
+          </div>
+        {%endif %}
+        <hr>
+        <h4>Payment Option:</h4>
+        <p>Currently we are only accepting cash on delivery only!</p>
+        <hr>
+        <input type="submit"  class="btn btn-success" value="Proceed To Buy">
+    </form>
+</div>
+{%endblock %}

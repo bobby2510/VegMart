@@ -1,0 +1,162 @@
+{% extends 'store/base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="card text-center mt-4">
+    <div class="card-header bg-success text-white">
+      vegetable shop
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">{{shop.name}}</h3>
+      <p class="card-text">{{shop.description}}</p>
+      <div class="d-flex justify-content-around flex-wrap">
+        <div class="card bg-light mb-3 mt-3" style="width: 20rem;">
+            <div class="card-header bg-secondary text-white">Shop Details</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% if shop.shop_rating_count == 0 %}
+                    <li class="list-group-item">Rating: No One Rated</li>
+                    {%else%}
+                    <li class="list-group-item">Rating: {{shop.shop_rating|floatformat:1 }} <i class="fa fa-star" style="color:gold;"></i> </li>
+                    {%endif %}
+                    {% if shop.discount == 0 %}
+                    <li class="list-group-item">Discount: <i class="fas fa-exclamation-triangle" style="color:orange"></i> No Discount</li>
+                    {%else%}
+                    <li class="list-group-item">Discount: <i class="fa fa-fire" style="color:red"></i> {{shop.discount}}% Off</li>
+                    {%endif %}
+                    <li class="list-group-item">Owner Name: {{shop.shopowner.user.username}}</li>
+                </ul>
+            </div>
+          </div>
+          <!-- Rating Card Start -->
+          <div class="card bg-light mb-3 mt-3" style="width: 20rem;">
+            <div class="card-header bg-secondary text-white"> Rating</div>
+            <div class="card-body">
+              {% if user.is_authenticated %}
+              <br>
+                {% if rated %}
+                  <span style="display:block;">You have rated this shop : <strong id="shop_rating_id" style="font-size:18px;">{{rating}}</strong><i class="fa fa-star" style="color:gold; font-size:18px;"></i></span>
+                  <div id="vp1">
+                    <small>want to change your rating? click below</small>
+                    <span class="btn btn-success mt-2" id="change_rating_id" onclick="fn1()">Change Rating</span>
+                  </div>
+                  <div id="vp2" class="mt-2">
+                    <div class="rating-container">
+                      <i class="fa fa-star inactive-star js-star"></i>
+                      <i class="fa fa-star inactive-star js-star"></i>
+                      <i class="fa fa-star inactive-star js-star"></i>
+                      <i class="fa fa-star inactive-star js-star"></i>
+                      <i class="fa fa-star inactive-star js-star"></i>
+                    </div>
+                    <form action="{% url 'store:rating' slug_store=shop.slug_store %}?next={{request.path}}" method="POST">
+                      {% csrf_token %}
+                      <input type="text" name="rating" id="rating_input" style="display: none;">
+                      <input type="submit" class="btn btn-success mt-2" value="Submit Rating">
+                    </form>
+                  </div>
+                {%else %}
+                <div>
+                  <div class="rating-container">
+                    <i class="fa fa-star inactive-star js-star"></i>
+                    <i class="fa fa-star inactive-star js-star"></i>
+                    <i class="fa fa-star inactive-star js-star"></i>
+                    <i class="fa fa-star inactive-star js-star"></i>
+                    <i class="fa fa-star inactive-star js-star"></i>
+                  </div>
+                  <form action="{% url 'store:rating' slug_store=shop.slug_store %}?next={{request.path}}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="rating" id="rating_input" style="display: none;">
+                    <input type="submit" class="btn btn-success mt-2" value="Submit Rating">
+                  </form>
+                </div>
+                {%endif %}
+              {%else %}
+              <br>
+              <p>want to rate this shop? you must login</p>
+              <p>click here to <a class='btn btn-success' href="{%url 'accounts:login' %}?next{{request.path}}">Login</a></p>
+              {%endif%}
+            </div>
+          </div>
+          <!-- Rating Card End-->
+          <div class="card bg-light mb-3 mt-3" style="width: 20rem;">
+            <div class="card-header bg-secondary text-white">Shop Address</div>
+            <div class="card-body">
+              <h5 class="card-title">Shop Address</h5>
+              <p class="card-text">{{shop.address.address_line}}, {{shop.address.get_state_display }},{{shop.address.get_country_display }}</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="card text-center mt-3 mb-3">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          {%if veg_type == 1 %}
+          <span class="nav-link home-link active" onclick="add_attribute('type',1)">All</span>
+          {%else %}
+          <span class="nav-link home-link" onclick="add_attribute('type',1)">All</span>
+          {%endif %}
+        </li>  
+        <li class="nav-item">
+          {%if veg_type == 2 %}
+          <span class="nav-link home-link active" onclick="add_attribute('type',2)">Daily Use</span>
+          {%else %}
+          <span class="nav-link home-link" onclick="add_attribute('type',2)">Daily Use</span>
+          {%endif %}
+        </li>
+        <li class="nav-item">
+            {%if veg_type == 3 %}
+            <span class="nav-link home-link active" onclick="add_attribute('type',3)">Green Leaves</span>
+            {%else %}
+            <span class="nav-link home-link" onclick="add_attribute('type',3)">Green Leaves</span>
+            {%endif %}
+          </li>
+          <li class="nav-item">
+            {%if veg_type == 4 %}
+            <span class="nav-link home-link active" onclick="add_attribute('type',4)">Root</span>
+            {%else %}
+            <span class="nav-link home-link" onclick="add_attribute('type',4)">Root</span>
+            {%endif %}
+          </li>
+          <li class="nav-item">
+            {%if veg_type == 5 %}
+            <span class="nav-link home-link active" onclick="add_attribute('type',5)">Spices and Flavours</span>
+            {%else %}
+            <span class="nav-link home-link" onclick="add_attribute('type',5)">Spices and Flavours</span>
+            {%endif %}
+          </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ veg_title }}</h5>
+      <p class="card-text">{{ veg_description }}</p>
+      <div class="d-flex justify-content-around flex-wrap mt-2">
+          {% for product in products %}
+          <div class="card mt-4 custom-card" style="width: 18rem;">
+            <img class="card-img-top restaurant-image" src="{{ product.image.url }}" alt="{{product.name}}">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <h6>price : &#8377; {{product.price}} <small style="font-style: italic;">per kg</small></h6>
+              {% if product in user.customer.get_live_order_products %}
+              {% for order_item in product|order_item_instance:user %}
+              <div>
+                <div class="d-flex  align-items-center justify-content-center">
+                    <a href="{{ order_item.product.get_absolute_decreament_order_item_url }}" class="custom-cart-quantity cart-link" style="text-decoration-line:none;"><strong>&#8722;</strong></a>
+                    <span class='custom-cart-quantity '>{{order_item.quantity}}</span>
+                    <a href="{{ order_item.product.get_absolute_increase_order_item_url }}" class='custom-cart-quantity cart-link' style="text-decoration-line:none;"><strong>&#43;</strong></a>
+                </div>
+                <small id="passwordHelpBlock" class="form-text text-muted text-center">
+                (Note, {{order_item.quantity}} kg)
+                </small>
+              </div>
+              {%endfor%}
+              {%else %}
+              <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Add to cart</a>
+              {%endif %}
+            </div>
+          </div>
+          {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,159 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+          {% if not user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'store:home' %}"><img src={% static 'images/logo.png'%} class='logo'></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store:home' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'business:business-home'%}">Business</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'store:about' %}">About</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'store:contact-us' %}">Contact Us</a>
+                  </li>
+                </ul>
+                <a href="{% url 'accounts:register' %}" class='btn btn-outline-success m-1'>Register</a>
+                <a href="{% url 'accounts:login' %}?next={{request.path}}" class='btn btn-outline-success m-1'>Login</a>
+            </div>
+          {% elif user.is_authenticated and user.user_role.role == 'Customer' %}
+            <a class="navbar-brand" href="{% url 'store:home' %}"><img src={% static 'images/logo.png'%} class='logo'></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'store:home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'store:about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store:contact-us' %}">Contact Us</a>
+                </li>
+              </ul>
+              <div class="dropdown show">
+                <a class="text-white m-1 mr-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration-line: none;">Hi,&nbsp;<i class="fa fa-user-circle	"></i>&nbsp;{{user.username}}</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'accounts:update-customer-profile' %}">my profile</a>
+                  <a class="dropdown-item" href="{{ user.customer.get_absolute_orders_url }}">my orders </a>
+                </div>
+              </div>
+              <a href="{% url 'accounts:logout' %}" class='btn btn-outline-success m-1'>Logout</a>
+              <a href="{% url 'store:cart' %}" class="m-1 ml-3 text-white d-flex" style="text-decoration-line: none;"><i class="fa fa-cart-arrow-down cart-icon"></i>&nbsp;<span class="text-white bg-danger p-1 cart-symbol">{{user.customer.get_cart_count}}</span></a>
+            </div>
+          
+          {% elif user.is_authenticated and user.user_role.role == 'Staff' %}
+            <a class="navbar-brand" href="{% url 'business:staff-home' %}"><img src={% static 'images/logo.png'%} class='logo'></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="{% url 'business:staff-home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <div class="dropdown show nav-link">
+                    <a class="text-white m-1 mr-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration-line: none;">Online Shop Applications</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'business:new-shop-applications' %}">New Online Shop Applications</a>
+                      <a class="dropdown-item" href="{% url 'business:shop-verified-applications' %}">Verified Online Shop Applications</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="dropdown show nav-link">
+                    <a class="text-white m-1 mr-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration-line: none;">Delivery Job Applications</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'business:new-delivery-boy-applications' %}">New Delivery Boy Job Applications</a>
+                      <a class="dropdown-item" href="{% url 'business:delivery-boy-verified-applications' %}">Verified Delivery Boy Job Applications</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <a class="text-white m-1 mr-3">Hi,&nbsp;<i class="fa fa-user-circle	"></i>&nbsp;{{user.username}}</a>
+              <a href="{% url 'accounts:logout' %}" class='btn btn-outline-success m-1'>Logout</a>
+            </div>
+          {% elif user.is_authenticated and user.user_role.role == 'ShopOwner' %}
+            <a class="navbar-brand" href="{% url 'business:shop-owner-home' %}"><img src={% static 'images/logo.png'%} class='logo'></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'business:shop-owner-home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{user.shopowner.get_previous_order_url }}">Previous Orders</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{user.shopowner.get_my_products_url }}">My Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'business:new-product' %}">Add New Product</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{user.shopowner.get_discount_url }}">Change Discount Offer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'store:about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store:contact-us' %}">Contact Us</a>
+                </li>
+              </ul>
+              <a class="text-white m-1 mr-3">Hi,&nbsp;<i class="fa fa-user-circle	"></i>&nbsp;{{user.username}}</a>
+              <a href="{% url 'accounts:logout' %}" class='btn btn-outline-success m-1'>Logout</a>
+            </div>
+          {% elif user.is_authenticated and user.user_role.role == 'DeliveryBoy' %}
+            <a class="navbar-brand" href="{% url 'business:delivery-boy-home' %}"><img src={% static 'images/logo.png'%} class='logo'></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'business:delivery-boy-home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{user.delivaryboy.get_previous_order_url }}">Previous Deliveries</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{user.delivaryboy.get_profile_url }}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'store:about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store:contact-us' %}">Contact Us</a>
+                </li>
+              </ul>
+              <a class="text-white m-1 mr-3">Hi,&nbsp;<i class="fa fa-user-circle	"></i>&nbsp;{{user.username}}</a>
+              <a href="{% url 'accounts:logout' %}" class='btn btn-outline-success m-1'>Logout</a>
+            </div>
+          {% else %}
+          <a class="navbar-brand" href="{% url 'business:admin-home' %}"><img src={% static 'images/logo.png'%} class='logo'></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'business:admin-home' %}">Home</a>
+                </li>
+              </ul>
+              <a class="text-white m-1 mr-3">Hi,&nbsp;<i class="fa fa-user-circle	"></i>&nbsp;{{user.username}}</a>
+              <a href="{% url 'accounts:logout' %}" class='btn btn-outline-success m-1'>Logout</a>
+            </div>
+          {% endif %}
+  </nav>
