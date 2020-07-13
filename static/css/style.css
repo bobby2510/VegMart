@@ -1,0 +1,231 @@
+.logo
+{
+    width:170px;
+    height:40px;
+}
+.restaurant-image
+{
+    width:288px;
+    height:180px;
+    border-bottom: 1px solid lightgrey;
+}
+.custom-card
+{
+    border:none;
+    box-shadow: 0px 0px 7px grey;
+}
+.custom-card:hover{
+    box-shadow: 0px 0px 7px black;
+}
+.cart-symbol
+{
+    width:22px;
+    height: 22px;
+    border-radius: 50%;
+    line-height: 12px;
+    box-shadow: 0px 0px 5px white;
+    text-align: center;
+}
+.cart-icon
+{
+    font-size: 20px;
+}
+.custom-column
+{
+    box-shadow: 0px 0px 10px lightgrey;
+}
+.custom-cart-quantity
+{
+    padding:10px 15px;
+    border:1px solid lightgray;
+    font-size:18px;
+}
+.cart-link
+{
+    font-weight:bolder;
+}
+.cart-link:hover{
+    background-color:lightgrey;
+}
+.home-link
+{
+    color:rgb(42, 42, 219);
+}
+.home-link:hover{
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+.custom-active
+{
+    color:black;
+}
+.js-star
+{
+    font-size:26px;
+}
+#vp2
+{
+    display:none;
+}
+.active-star
+{
+    color:gold;
+}
+.inactive-star
+{
+    color:rgba(128, 128, 128, 0.705);
+}
+.custom-form
+{
+    width:47%;
+    margin:1%;
+    padding:5px;
+    color:grey;
+}
+.custom-form-container
+{
+    display:flex;
+    justify-content:flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.container-fluid {
+    margin-top: 200px
+}
+
+p {
+    font-size: 14px;
+    margin-bottom: 7px
+}
+
+.small {
+    letter-spacing: 0.5px !important
+}
+
+.card-1 {
+    box-shadow: 0px 0px 5px grey;
+}
+
+hr {
+    background-color: rgba(248, 248, 248, 0.667)
+}
+
+.bold {
+    font-weight: 500
+}
+
+.change-color {
+    color: #AB47BC !important
+}
+
+.card-2 {
+    box-shadow: 1px 1px 3px 0px rgb(112, 115, 139)
+}
+
+.fa-circle.active {
+    font-size: 8px;
+    color: #AB47BC
+}
+
+.fa-circle {
+    font-size: 8px;
+    color: #aaa
+}
+
+.rounded {
+    border-radius: 2.25rem !important
+}
+
+.progress-bar {
+    background-color: #AB47BC !important
+}
+
+.progress {
+    height: 5px !important;
+    margin-bottom: 0
+}
+
+.invoice {
+    position: relative;
+    top: -70px
+}
+
+.Glasses {
+    position: relative;
+    top: -12px !important
+}
+.card-footer {
+    background-color: #AB47BC;
+    color: #fff
+}
+
+h2 {
+    color: rgb(78, 0, 92);
+    letter-spacing: 2px !important
+}
+
+.display-3 {
+    font-weight: 500 !important
+}
+
+@media (max-width: 479px) {
+    .invoice {
+        position: relative;
+        top: 7px
+    }
+
+    .border-line {
+        border-right: 0px solid rgb(226, 206, 226) !important
+    }
+}
+
+@media (max-width: 700px) {
+    h2 {
+        color: rgb(78, 0, 92);
+        font-size: 17px
+    }
+
+    .display-3 {
+        font-size: 28px;
+        font-weight: 500 !important
+    }
+}
+
+.card-footer small {
+    letter-spacing: 7px !important;
+    font-size: 12px
+}
+
+.border-line {
+    border-right: 1px solid rgb(226, 206, 226)
+}
+@media print {
+    #printPageButton {
+      display: none;
+    }
+  }
+
+.custom-form-full
+{
+    margin:15px 0px ;
+}
+
+#id_category
+{
+    width: 47%;
+    padding: 5px;
+    margin:1%;
+    color:grey;
+}
+.form label{
+    display:inline-block;
+    margin-top:10px;
+}
+#id_image
+{
+    margin-top:10px;
+}
+#text
+{
+    display: none;
+}
