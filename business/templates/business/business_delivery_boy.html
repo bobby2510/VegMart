@@ -1,0 +1,71 @@
+{%extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mb-3 mt-4 custom-card">
+    <img src="{% static 'images/delivery-boy-final.png'%}" style="height: 400px;" class="card-img-top" >
+    <div class="card-body">
+      <h5 class="card-title">Work as a delivery boy</h5>
+      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla vero eum tempore animi odio blanditiis nam alias unde, aperiam error sunt! Libero provident deserunt adipisci dolorum harum vitae modi laborum nisi? Voluptatibus consectetur non cum fugiat facere labore quo quos minima. Porro maiores itaque assumenda quis reiciendis atque, reprehenderit culpa.</p>
+      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum accusantium temporibus, quo iure quas quod dolorum, consequuntur necessitatibus veritatis praesentium asperiores dolore delectus? Laudantium nihil molestiae, nobis tempore rerum ipsum illo veniam neque eveniet excepturi dolor, mollitia odio, alias laborum.</p>
+      <ul>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eligendi.</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eligendi.</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eligendi.</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eligendi.</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eligendi.</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eligendi.</li>
+      </ul>
+      <span class="btn btn-success" id="apply_online">Apply For Job</span>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Verify Your Application
+      </button>
+
+        <!-- Modal starting -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Verify Delivery Boy Job Application</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="{% url 'business:verify-delivery-boy'%}" method="post">
+                  {% csrf_token %}
+                <input type="text" name="username" class='form-control mt-1 mb-2' placeholder="Username">
+                <input type="text" name="phone_number" class='form-control mt-2 mb-1' placeholder="Phone number">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class='btn btn-success' value="Verify">
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <!-- model ending -->
+    </div>
+  </div>
+  <div class="card mb-4 mt-4 custom-card" id="display_form" style="display: none;">
+    <div class="card-header text-white text-center bg-success">
+      Delivery boy job application form
+    </div>
+    <div class="card-body">
+      <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h4>Delivery Boy Personal Data:</h4>
+        <div class="custom-form-container">
+         {{form1}}
+        </div>
+        <hr>
+        <h4>Delivery Boy Address Data:</h4>
+        <div class="custom-form-container">
+          {{form2}}
+        </div>
+        <input type="submit" class='btn btn-success' value="Submit Data">
+      </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'store/base.html' %}
+{%load static %}
+{% block content %}
+<div class="custom-card ml-auto mr-auto mt-4 mb-4 pb-4" style="width: 550px;">
+<h4 class='text-center pt-4'>Delivery Boy Profile</h4>
+<div class="d-flex justify-content-between align-items-center m-4" style="border-bottom: 1px solid lightgrey;">
+    <div>
+        <img  style="width: 90px; height:90px; margin-right:5px; border-radius:50%; " src="{{ obj.image.url }}">
+       <h6 class='text-center'>{{obj.user.username}}</h6>
+    </div>
+    <div style="width: 200px;">
+        <small style="text-decoration-line: underline;">address:</small>
+        <p>{{obj.address.get_address }}</p>
+    </div>
+</div>
+<div class="m-4" style="border-bottom: 1px solid lightgrey;">
+    <h6>Personal Data</h6>
+    <table class="table text-center table-bordered">
+        <tbody>
+          <tr>
+            <td>Phone Number</td>
+            <td>{{obj.user.phone_number}}</td>
+          </tr>
+          <tr>
+            <td>city</td>
+            <td>{{obj.address.city}}</td>
+          </tr>
+          <tr>
+            <td>Gender</td>
+            <td>{{obj.user.get_gender_display }}</td>
+          </tr>
+          <tr>
+            <td>Age</td>
+            <td>{{ obj.user.age }}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div class="m-4">
+    <h6>Certification</h6>
+    <div class="d-flex justify-content-between align-items-center">
+        <p>
+            <strong class="text-success ">Verified VEGMART Delivered Boy</strong>
+        </p>
+       <div>
+        <img  width="115"  src="{% static 'images/logo.png' %}">
+        <p><i>Fast and Fresh</i></p>
+       </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

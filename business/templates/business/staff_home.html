@@ -1,0 +1,82 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content%}
+    <div class="card mb-4 mt-4">
+        <div class="card-header" style="background-color:#e3f2fd ;">
+          Online Shop Application Report 
+        </div>
+        <div class="card-body">
+            <p class="mb-3">This is the report of applications which are applied for online store </p>
+            <table class="table table-bordered text-center custom-card">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Field Name</th>
+                    <th scope="col">Field Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <th>Total Number of Applications</th>
+                    <td>{{shop_total_number_of_applications}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <th>Number of Verified Applications</th>
+                    <td>{{shop_verified_applications}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <th>Number of Accepted Applications</th>
+                    <td colspan="2">{{shop_accepted_applications}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <th>Number of Rejected Applications</th>
+                    <td colspan="2">{{shop_rejected_applications}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <div class="card mb-4 mt-4">
+        <div class="card-header" style="background-color:#e3f2fd ;">
+          Delivery Boy Job Application Report 
+        </div>
+        <div class="card-body">
+            <p class="mb-3">This is the report of applications which are applied for delivery boy job. </p>
+            <table class="table table-bordered text-center custom-card">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Field Name</th>
+                    <th scope="col">Field Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <th>Total Number of Applications</th>
+                    <td>{{delivery_boy_total_number_of_applications }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <th>Number of Verified Applications</th>
+                    <td>{{delivery_boy_verified_applications }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <th>Number of Accepted Applications</th>
+                    <td colspan="2">{{ delivery_boy_accepted_applications }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <th>Number of Rejected Applications</th>
+                    <td colspan="2">{{ delivery_boy_rejected_applications }}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+{% endblock content%}

@@ -1,0 +1,17 @@
+{%extends 'store/base.html' %}
+{% block content %}
+    <div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 500px;" >
+        <div class="card-header text-center bg-success text-white">
+            New Online Shop Registration Form
+        </div>
+        <div class="card-body">
+        <h5 class="card-title"> Set password and register your account!</h5>
+        <form method="POST" action="{{ obj.get_register_url }}">
+            {% csrf_token %}
+            <input type="password" name="password1" placeholder="Password" class="form-control mt-4">
+            <input type="password" name="password2" placeholder="Confirm Passowrd" class="form-control mt-4">
+            <input type="submit" class="btn btn-primary form-control mt-4" value="Register">
+        </form>
+        </div>
+    </div>
+{% endblock content %}

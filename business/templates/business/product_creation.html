@@ -1,0 +1,15 @@
+{% extends 'store/base.html' %}
+{%block content %}
+<div  class="mt-4 mb-4 mr-auto ml-auto custom-card" >
+<h4 class="text-center pt-4">New Product Creation </h4>
+    <div>
+        <form action="." method="post" enctype="multipart/form-data">
+            <div class="d-flex justify-content-between flex-wrap align-items-center pb-3">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" class="btn btn-success form-control ml-auto mr-auto" style="width: 98%; display:block;" value="Add Product">
+            </div>
+        </form>
+    </div>
+</div>
+{%endblock content%}

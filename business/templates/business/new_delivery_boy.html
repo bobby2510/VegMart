@@ -1,0 +1,23 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content%}
+    <div class="card mb-4 mt-4">
+        <div class="card-header bg-success text-center text-white" >
+          New Delivery Boy Job Applications 
+        </div>
+        <div class="card-body">
+            {% if applications %}
+            {% for application in new_delivery_boy_applications %}
+            <div class="d-flex justify-content-around align-items-center mt-3 mb-3 custom-card p-3">
+                <span>{{application.username}}</span>
+                <span>{{application.phone_number}}</span>
+                <span>{{application.city}}</span>
+                <a href="{{ application.get_absolute_url }}" class='btn btn-success'>Verify Application</a>
+            </div>
+            {% endfor %}
+            {%else %}
+            <p>There are no new applications available!</p>
+            {%endif %}
+        </div>
+    </div>
+{% endblock content%}

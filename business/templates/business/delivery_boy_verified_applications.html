@@ -1,0 +1,40 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content%}
+<h4 class="mt-4">Verified Delivery Boy Applications</h4>
+    <div class="card mb-4 mt-4 custom-card">
+        <div class="card-header p-1" style="background-color:#e3f2fd ;" >
+            <div class="d-flex mr-auto mt-2 mt-lg-0 ml-3 flex-wrap">
+                {% if status == 1 %}
+                <span class="nav-item nav-link home-link custom-active"  onclick="add_attribute('status',1)">Verified Applications List</span>
+                {% else%}
+                <span class="nav-item nav-link home-link"  onclick="add_attribute('status',1)">Verified Applications List</span>
+                {% endif %}
+                {% if status == 2 %}
+                <span class="nav-item nav-link home-link custom-active"  onclick="add_attribute('status',2)">Accepted Applications List</span>
+                {% else%}
+                <span class="nav-item nav-link home-link"  onclick="add_attribute('status',2)">Accepted Applications List</span>
+                {% endif %}
+                {% if status == 3 %}
+                <span class="nav-item nav-link home-link custom-active" onclick="add_attribute('status',3)">Rejected Applications List</span>
+                {% else%}
+                <span class="nav-item nav-link home-link" onclick="add_attribute('status',3)">Rejected Applications List</span>
+                {% endif %}
+              </div>
+        </div>
+        <div class="card-body">
+            {% if is_applications_exist %}
+            {% for application in applications %}
+            <div class="d-flex justify-content-around align-items-center mt-3 mb-3 custom-card p-3">
+                <span>{{application.username}}</span>
+                <span>{{application.phone_number}}</span>
+                <span>{{application.shop_city}}</span>
+                <a href="{{ application.get_absolute_url }}" class='btn btn-success'>View Application</a>
+            </div>
+            {% endfor %}
+            {%else %}
+            <p>There are no applications available!</p>
+            {%endif %}
+        </div>
+    </div>
+{% endblock content%}

@@ -1,0 +1,122 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content%}
+    <div class="card mb-4 mt-4">
+        <div class="card-header" style="background-color:#e3f2fd ;">
+          Delivery Boy Job Application
+        </div>
+        <div class="card-body">
+            <h4 class="mt-2 mb-2">Delivery Boy Personal Data</h4>
+            <table class="table table-bordered text-center custom-card">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Field Name</th>
+                    <th scope="col">Field Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <th>UserName</th>
+                    <td>{{application.username}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <th>Email</th>
+                    <td>{{application.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <th>Phone Number</th>
+                    <td colspan="2">{{application.phone_number}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <th>Age</th>
+                    <td colspan="2">{{ application.age}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <th>Gender</th>
+                    <td colspan="2">{{application.get_gender_display }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <th>First Name</th>
+                    <td colspan="2">{{ application.first_name }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <th>Last Name</th>
+                    <td colspan="2">{{application.last_name}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <th>Delivery boy Image</th>
+                    <td colspan="2"><a href="{{ application.image.url  }}" class='btn btn-info' > View Image</a></td>
+                  </tr>
+                </tbody>
+            </table>
+            
+            <h4 class="mt-2 mb-2">Delivery Boy  Address Data</h4>
+            <table class="table table-bordered text-center custom-card">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Field Name</th>
+                    <th scope="col">Field Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <th>Address Line</th>
+                    <td>{{application.address_line}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <th>Landmark</th>
+                    <td>{{ application.landmark}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <th>City</th>
+                    <td colspan="2">{{ application.city}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <th>Zipcode</th>
+                    <td colspan="2">{{ application.zipcode }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <th>State</th>
+                    <td colspan="2">{{ application.get_state_display }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <th>Country</th>
+                    <td colspan="2">{{ application.get_country_display }}</td>
+                  </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end mt-4">
+                {% if application.is_verified and application.is_rejected %}
+                <h5 class="text-danger">This Application is Rejected</h5>
+                {%elif application.is_verified and application.is_accepted %}
+                <h5 class="text-success">This Applications is Accepted</h5>
+                {%else %}
+                <form action="{{ application.get_rejected_url }}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class='btn btn-danger' value="Reject Application">
+                </form>
+                <form action="{{ application.get_accepted_url }}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class='ml-2 btn btn-success' value="Accept Application">
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content%}

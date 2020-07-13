@@ -1,0 +1,103 @@
+{% extends 'store/base.html' %}
+{%block content %}
+<div class="card text-center mt-4 custom-card">
+    <div class="card-header bg-success text-white">
+      Delivery Boy Summary
+    </div>
+    <div class="card-body">
+      <h3 class="card-title"> Welcome {{user.username}}!</h3>
+      <div class="d-flex justify-content-around flex-wrap">
+            <table class="table table-bordered text-center custom-card">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Field Name</th>
+                    <th scope="col">Field Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Active Orders</th>
+                    <td>{{user.delivaryboy.get_active_orders }}</td>
+                  </tr>
+                  <tr>
+                    <th>Delivered Orders</th>
+                    <td>{{user.delivaryboy.get_delivered_orders}}</td>
+                  </tr>
+                  <tr>
+                    <th>Total Orders</th>
+                    <td colspan="2">{{user.delivaryboy.get_total_orders}}</td>
+                  </tr>
+                  <tr>
+                    <th>Delivery boy  id</th>
+                    <td colspan="2">ref-id-{{ user.delivaryboy.id }}</td>
+                  </tr>
+                </tbody>
+            </table>
+          <!-- Rating Card Start -->
+          <div class="card bg-light mb-3 mt-3 custom-card" style="width: 20rem;">
+            <div class="card-header bg-secondary text-white"> Delivary Boy Status</div>
+            <div class="card-body">
+                    <br>
+                    {% if user.delivaryboy.is_active %}
+                    <p>currently, You are <span class="text-success">Available for delivery</span>, if you want to take some break you can click below button!</p>
+                    <form action="{{user.delivaryboy.get_not_available_url }}" method="POST">
+                      {% csrf_token %}
+                      <input type="submit" class="btn btn-danger mt-2" value="Not Available For Delivery">
+                    </form>
+                    {%else%}
+                    <p>currently, You are <span class="text-danger">Not Available for delivery</span>, so please click below to Available for Delivery procucts!</p>
+                    <form action="{{ user.delivaryboy.get_available_url }}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-success mt-2" value="Availabel For Delivery">
+                      </form>
+                    {%endif %}
+            </div>
+          </div>
+          <!-- Rating Card End-->
+          <div class="card bg-light mb-3 mt-3 custom-card" style="width: 20rem;">
+            <div class="card-header bg-secondary text-white">Delivery boy Address</div>
+            <div class="card-body">
+              <h5 class="card-title">Delivery boy Address</h5>
+              <p class="card-text">{{ user.delivaryboy.address.get_address }}</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4 mt-4 custom-card">
+    <div class="card-header" style="background-color:#e3f2fd ;">
+      Active Orders
+    </div>
+    <div class="card-body">
+        {% if active %}
+            {% for obj in active_orders %}
+            <div class="card card-2 mt-3 mb-3">
+                <div class="card-body">
+            <div class="media">
+                <div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" style="width: 135px; height:75px;" src="{{ obj.order.shop.image.url }}" /></div>
+                <div class="media-body my-auto text-right">
+                    <div class="row my-auto flex-column flex-md-row">
+                        <div class="col my-auto">
+                            <h6 class="mb-0">{{ obj.order.shop.name }}</h6>
+                        </div>
+                        <div class="col my-auto"> <small>{{obj.date_shipped }}</small></div>
+                        <div class="col my-auto"> <small>Ref id : Rf-{{ obj.id }}</small></div>
+                        <div class="col my-auto">
+                            <h6 class="mb-0">&#8377;{{ obj.order.get_final_amount }}</h6>
+                        </div>
+                        <div class="col my-auto">
+                <a href="{{obj.get_absolute_url }}" class="btn btn-outline-success">View Order Details</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
+            {%else %}
+            <p>There are no active orders found!</p>
+            {%endif %}
+    </div>
+  </div>
+{% endblock content %}

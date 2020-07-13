@@ -1,0 +1,29 @@
+{%extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mb-4 mt-4">
+    <div class="card-header text-white text-center bg-success">
+      Business Portal
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-around flex-wrap mt-2">
+            <div class="card mt-4 custom-card" style="width: 22rem;">
+                <img class="card-img-top"  style="height:250px;" src="{% static 'images/business-shop.jpg' %}" alt="business portal">
+                <div class="card-body text-center">
+                <h5 class="card-title">Build your business with us, Make your store online</h5>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti reprehenderit impedit cumque quos, culpa ratione soluta temporibus accusamus voluptates consectetur recusandae labore eum quis perferendis, est velit asperiores quia nisi ad eaque dicta explicabo! Aspernatur earum soluta et corrupti minima?</p>
+                <a href="{% url 'business:new-online-shop' %}" class="btn btn-primary">View Full Details</a>
+                </div>
+            </div>
+            <div class="card mt-4 custom-card" style="width: 22rem;">
+                <img class="card-img-top" style="height: 250px;" src="{% static 'images/delivery-boy-image.png' %}" alt="delivery-boy">
+                <div class="card-body text-center">
+                <h5 class="card-title">Opertunity to work as delivery boy</h5>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti reprehenderit impedit cumque quos, culpa ratione soluta temporibus accusamus voluptates consectetur recusandae labore eum quis perferendis, est velit asperiores quia nisi ad eaque dicta explicabo! Aspernatur earum soluta et corrupti minima?</p>
+                <a href="{% url 'business:new-delivery-boy' %}" class="btn btn-primary">View Full Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
