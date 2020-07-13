@@ -1,0 +1,16 @@
+{%extends 'store/base.html' %}
+{% block content %}
+    <div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 600px;" >
+        <div class="card-header text-center bg-success text-white">
+        Update Your Profile
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">update your personal data</h5>
+        <form method="POST">
+            {%csrf_token%}
+        {{form}}
+        <input type="submit" class="btn btn-primary form-control mt-2" value="Update Profile">
+        </form>
+        </div>
+    </div>
+{% endblock content %}

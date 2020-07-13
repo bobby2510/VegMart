@@ -1,0 +1,16 @@
+{%extends 'store/base.html' %}
+{% block content %}
+    <div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 500px;" >
+        <div class="card-header text-center bg-success text-white">
+        Login Here
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">Welcome Buddy!</h5>
+        <form method="POST">
+            {%csrf_token %}
+            {{form}}
+            <input type="submit" class="btn btn-primary form-control mt-4" value="Login">
+        </form>
+        </div>
+    </div>
+{% endblock content %}

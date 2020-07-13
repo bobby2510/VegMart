@@ -1,0 +1,13 @@
+{%extends 'store/base.html' %}
+{% block content %}
+    <div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 500px;" >
+        <div class="card-header text-center bg-success text-white">
+        Logout
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">You have logged out successfully!</h5>
+        <p>want to login again! click <a href="{% url 'accounts:login' %}">Here</a></p>
+        <a href="{%url 'store:home'%}" class="btn btn-outline-success mr-auto"> back to Home</a>
+    </div>
+    </div>
+{% endblock content %}
